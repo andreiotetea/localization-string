@@ -2,7 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Routing\Router;
+use App\Http\Controllers\Api\v1\LanguagesController;
+use App\Http\Controllers\Api\v1\TranslationsController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,6 +16,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+/** @var $router Router */
+$router->group(['prefix' => 'v1'], function() use ($router){
+    $router->get('/languages', [LanguagesController::class, 'get']);
+    $router->get('/translations', [TranslationsController::class, 'get']);
+    $router->post('/translation', [TranslationsController::class, 'set']);
+    $router->delete('/translation/{translation_id}', [TranslationsController::class, 'delete']);
+    $router->get('/export', [TranslationsController::class, 'export']);
 });

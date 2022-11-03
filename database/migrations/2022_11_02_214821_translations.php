@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('key_name', 40)->comment('Name of the key');
             $table->string('key_value')->comment('Value of the key');
             $table->foreign('language_id')->references('id')->on('languages');
-            $table->unique('language_id', 'key_name');
+            $table->unique(['language_id', 'key_name']);
             $table->timestamps();
         });
     }
