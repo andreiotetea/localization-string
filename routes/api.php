@@ -22,5 +22,4 @@ $router->group(['prefix' => 'v1'], function() use ($router){
     $router->get('/translations', [TranslationsController::class, 'get']);
     $router->post('/translation', [TranslationsController::class, 'set']);
     $router->delete('/translation/{translation_id}', [TranslationsController::class, 'delete']);
-    $router->get('/export', [TranslationsController::class, 'export']);
 });

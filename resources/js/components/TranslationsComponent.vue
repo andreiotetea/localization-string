@@ -34,7 +34,7 @@
                           <tbody>
                             <tr v-for="(translation, arrkey) in translations">
                               <td scope="row">{{translation.id}}</td>
-                              <td class="col">{{getLanguage(translation.language_id).code}}</td>
+                              <td class="col">{{translation.language_id>0 ? getLanguage(translation.language_id).code : ''}}</td>
                               <td class="col">{{translation.key_name}}</td>
                               <td class="col">{{translation.key_value}}</td>
                               <td class="col">
@@ -118,11 +118,34 @@
                     this.dataDeleted = null;
                 }
             },
-            async exportAndroid() {
-                await axios.get('api/v1/export?device=android').then(response => (this.dataExported = response));
+            exportAndroid() {
+                let translations = [];
+                this.translations.forEach((value, index) => {
+                    let newValue = JSON.parse(JSON.stringify(value));
+                    newValue.language_id = this.getLanguage(newValue.language_id).code;
+                    translations.push(newValue);
+                });
+                translations = JSON.stringify(translations);
+                const anchor = document.createElement('a');
+                anchor.href = 'data:text/json;charset=utf-8,' + encodeURIComponent(translations);
+                anchor.target = '_blank';
+                anchor.download = 'translations.json';
+                anchor.click();
             },
-            async exportIos() {
-                await axios.get('api/v1/export?device=ios').then(response => (this.dataExported = response));
+            exportIos() {
+                let translations = JSON.parse(JSON.stringify(this.translations));
+                const array = [Object.keys(translations[0])].concat(translations)
+                let csv = array.map(it => {
+                    if(it.language_id > 0) {
+                        it.language_id = this.getLanguage(it.language_id).code;
+                    }
+                    return Object.values(it).toString()
+                }).join('\n');
+                const anchor = document.createElement('a');
+                anchor.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+                anchor.target = '_blank';
+                anchor.download = 'translations.csv';
+                anchor.click();
             },
         }
     }

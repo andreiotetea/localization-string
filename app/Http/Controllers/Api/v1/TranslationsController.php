@@ -12,7 +12,9 @@ class TranslationsController extends Controller
     /** @var $translationService TranslationService */
     private $translationService;
 
-    public function __construct(TranslationService $translationService)
+    public function __construct(
+        TranslationService $translationService
+    )
     {
         $this->translationService = $translationService;
     }
@@ -43,8 +45,5 @@ class TranslationsController extends Controller
         }
     }
 
-    public function export(Request $request)
-    {
 
-    }
 }
