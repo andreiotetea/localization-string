@@ -1,17 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: andre
- * Date: 11/3/2022
- * Time: 3:02 PM
- */
 
 namespace App\Repositories;
 use App\Models\Language;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\DB;
 
-class LanguageRepository
+class LanguageRepository implements LanguageRepositoryInterface
 {
     public function get(): Collection
     {

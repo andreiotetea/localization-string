@@ -10,8 +10,7 @@ use Illuminate\Http\Response;
 
 class LanguagesController extends Controller
 {
-    /** @var LanguageService LanguageService */
-    private $languageService;
+    private LanguageService $languageService;
 
     public function __construct(LanguageService $languageService)
     {

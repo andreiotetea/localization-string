@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Services\TranslationService;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class TranslationsController extends Controller
 {
-    /** @var $translationService TranslationService */
-    private $translationService;
+    private TranslationService $translationService;
 
     public function __construct(
         TranslationService $translationService
@@ -30,7 +30,7 @@ class TranslationsController extends Controller
         try {
             $translation = $this->translationService->save($request->all());
             return response()->json($translation);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return response()->json($e, 500);
         }
     }
@@ -40,7 +40,7 @@ class TranslationsController extends Controller
         try {
             $this->translationService->delete($translation_id);
             return response()->json(['status' => true]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return response()->json($e, 500);
         }
     }

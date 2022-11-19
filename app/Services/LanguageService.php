@@ -1,22 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: andre
- * Date: 11/3/2022
- * Time: 2:47 PM
- */
 
 namespace App\Services;
 
-
-use App\Repositories\LanguageRepository;
+use App\Repositories\LanguageRepositoryInterface;
 
 class LanguageService
 {
-    /** @var $languageRepository LanguageRepository */
-    private $languageRepository;
+    private LanguageRepositoryInterface $languageRepository;
 
-    public function __construct(LanguageRepository $languageRepository)
+    public function __construct(LanguageRepositoryInterface $languageRepository)
     {
         $this->languageRepository = $languageRepository;
     }
